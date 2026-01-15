@@ -1,36 +1,20 @@
 def calculate(expression):
+
+    allowed_chars = "0123456789+-*/%.()"
+
+    for char in expression:
+        if char not in allowed_chars:
+            return "Ошибка: недопустимый символ"
+ 
     try:
-        if "+" in expression:
-            a, b = expression.split("+")
-            return float(a) + float(b)
+        result = eval(expression, {"__builtins__": None}, {})
+        return result
 
-        elif "-" in expression:
-            a, b = expression.split("-")
-            return float(a) - float(b)
+    except ZeroDivisionError:
+        return "Ошибка: деление на ноль"
 
-        elif "*" in expression:
-            a, b = expression.split("*")
-            return float(a) * float(b)
-
-        elif "/" in expression:
-            a, b = expression.split("/")
-            b = float(b)
-            if b == 0:
-                return "Ошибка: деление на ноль"
-            return float(a) / b
-
-        elif "%" in expression:
-            a, b = expression.split("%")
-            b = float(b)
-            if b == 0:
-                return "Ошибка: деление на ноль"
-            return float(a) % b
-
-        else:
-            return "Неизвестная операция"
-
-    except ValueError:
-        return "Ошибка: неверный формат ввода"
+    except Exception:
+        return "Ошибка: неверный формат выражения"
 
 
 def main():
